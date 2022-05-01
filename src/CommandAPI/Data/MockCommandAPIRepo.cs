@@ -37,7 +37,7 @@ public class MockCommandAPIRepo : ICommandAPIRepo
 
     public Command GetCommandById(int id)
     {
-        return GetAllCommands().Where(c => c.Id == id).FirstOrDefault();
+        return GetAllCommands().Where(c => c.Id == id).FirstOrDefault() ?? new Command();
     }
 
     public bool SaveChanges()
