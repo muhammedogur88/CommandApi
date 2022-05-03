@@ -38,3 +38,4 @@ msbuild.wrn
 *.exe
 *.o
 *.so
+.idea/sonarlint/issuestore/index.pb

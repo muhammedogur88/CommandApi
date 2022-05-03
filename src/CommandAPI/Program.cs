@@ -1,5 +1,6 @@
 using CommandAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,13 +11,16 @@ var bul = new NpgsqlConnectionStringBuilder();
 bul.ConnectionString = builder.Configuration.GetConnectionString("PostgreSqlConnection");
 bul.Username = builder.Configuration["UserID"];
 bul.Password = builder.Configuration["Password"];
-System.Console.WriteLine(bul.Username);
-System.Console.WriteLine(bul.Password);
-Console.WriteLine(bul.ConnectionString);
 
 builder.Services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(bul.ConnectionString));
 
-builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddControllers().AddNewtonsoftJson(s =>
+{
+    s.SerializerSettings.ContractResolver = new
+    CamelCasePropertyNamesContractResolver();
+});
 
 // builder.Services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
 builder.Services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();

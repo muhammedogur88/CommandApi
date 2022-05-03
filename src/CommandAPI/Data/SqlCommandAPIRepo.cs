@@ -6,6 +6,7 @@ namespace CommandAPI.Data;
 public class SqlCommandAPIRepo : ICommandAPIRepo
 {
     private readonly CommandContext _context;
+
     public SqlCommandAPIRepo(CommandContext context)
     {
         _context = context;
@@ -13,12 +14,18 @@ public class SqlCommandAPIRepo : ICommandAPIRepo
 
     public void CreateCommand(Command cmd)
     {
-        throw new NotImplementedException();
+        if (cmd == null)
+            throw new ArgumentNullException(nameof(cmd));
+
+        _context.CommandItems.Add(cmd);
     }
 
     public void DeleteCommand(Command cmd)
     {
-        throw new NotImplementedException();
+        if (cmd == null)
+            throw new ArgumentNullException(nameof(cmd));
+        
+        _context.CommandItems.Remove(cmd);
     }
 
     public IEnumerable<Command> GetAllCommands()
@@ -33,11 +40,10 @@ public class SqlCommandAPIRepo : ICommandAPIRepo
 
     public bool SaveChanges()
     {
-        throw new NotImplementedException();
+        return _context.SaveChanges() >= 0;
     }
 
     public void UpdateCommand(Command cmd)
     {
-        throw new NotImplementedException();
     }
 }

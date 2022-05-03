@@ -34,9 +34,6 @@ namespace CommandAPI.Data
             bul.ConnectionString = config.GetConnectionString("PostgreSqlConnection");
             bul.Username = config["UserID"];
             bul.Password = config["Password"];
-            System.Console.WriteLine(bul.Username);
-System.Console.WriteLine(bul.Password);
-Console.WriteLine(bul.ConnectionString);
 
             // Get connection string
             var optionsBuilder = new DbContextOptionsBuilder<CommandContext>();
