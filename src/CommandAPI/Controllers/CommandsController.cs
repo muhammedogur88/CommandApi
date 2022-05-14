@@ -21,7 +21,7 @@ public class CommandsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<CommandReadDto>> Get()
+    public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
     {
         var commands = _repository.GetAllCommands();
         return Ok(_mapper.Map<CommandReadDto>(commands));
